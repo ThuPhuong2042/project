@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 st.title('Stock Web')
 
 #Load the data
-vn30_url = pd.read_csv("https://github.com/ThuPhuong2042/project/vn30.csv")
+vn30_url = pd.read_csv("https://raw.githubusercontent.com/ThuPhuong2042/project/main/vn30.csv")
 vn30 = pd.read_csv(vn30_url)
 
 #Von hoa

@@ -70,7 +70,8 @@ stackgroup='one'))
 fig = fig.update_layout(title_text='Độ rộng thị trường',yaxis_range=(0, 1))
 
 #Dan dat thi truong
-df = pd.read_csv("C:/Users/ThuPhuong/PycharmProjects/pythonweb/data/Data_VN30.csv")
+df_url =('https://raw.githubusercontent.com/ThuPhuong2042/project/main/Data_VN30.csv')
+df = pd.read_csv(df_url)
 KLNIEMYET_GIATHAMCHIEU = df["GIATHAMCHIEU"] * df["KLNIEMYET"]
 KLNIEMYET_GIAKHOP = df["GIADONGCUA"] * df["KLNIEMYET"]
 VNI = 1- (KLNIEMYET_GIATHAMCHIEU.sum())/(KLNIEMYET_GIAKHOP.sum())

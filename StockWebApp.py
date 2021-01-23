@@ -97,13 +97,12 @@ topam = df2.nsmallest(10, 'DIEMANHHUONGAM')
 d = (topduong["DIEMANHHUONGDUONG"].reset_index()).set_index('MACOPHIEU')
 a = (topam["DIEMANHHUONGAM"].sort_values(ascending=False).reset_index()).set_index('MACOPHIEU')
 df3 = pd.concat([d, a])
-fig1, ax1 = plt.subplots()
-ax1.bar(df3.index, df3['DIEMANHHUONGDUONG'])
-ax1.bar(df3.index,df3["DIEMANHHUONGAM"])
-plt.xticks(rotation = 50)
-plt.title("NHÓM DẪN DẮT THỊ TRƯỜNG")
-plt.xlabel("MÃ CỔ PHIỂU")
-plt.ylabel("ĐIỂM ẢNH HƯỞNG")
+fig1 = go.Figure()
+fig1 = fig1.add_trace(go.Bar(x=df3.index, y=df3['DIEMANHHUONGDUONG'],
+                             name = 'DIEMANHHUONGDUONG',marker={'color':'green'},width=0.8))
+fig1 = fig1.add_trace(go.Bar(x=df3.index, y=df3['DIEMANHHUONGAM'],
+                             name = 'DIEMANHHUONGAM',marker={'color':'red'},width=0.8))
+fig1.update_layout(title_text='Nhóm dẫn dắt thị trường')
 
 
 #Display

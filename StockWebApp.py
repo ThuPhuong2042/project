@@ -113,5 +113,5 @@ if (status == 'Biểu đồ vốn hoá' ):
 elif (status == 'Độ rộng thị trường'):
     st.plotly_chart(fig)
 else:
-    st.pyplot(fig1)
+    st.plotly_chart(fig1)
 

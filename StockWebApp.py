@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 
 #Add a title
 st.title('Stock Web')
@@ -69,6 +70,39 @@ stackgroup='one'))
 fig = fig.update_layout(title_text='Độ rộng thị trường',yaxis_range=(0, 1))
 
 #Dan dat thi truong
+df = pd.read_csv("C:/Users/ThuPhuong/PycharmProjects/pythonweb/data/Data_VN30.csv")
+KLNIEMYET_GIATHAMCHIEU = df["GIATHAMCHIEU"] * df["KLNIEMYET"]
+KLNIEMYET_GIAKHOP = df["GIADONGCUA"] * df["KLNIEMYET"]
+VNI = 1- (KLNIEMYET_GIATHAMCHIEU.sum())/(KLNIEMYET_GIAKHOP.sum())
+index_return = df["THAYDOI"]
+# Select the market capitalization
+market_cap = df["VONHOA"]
+# Calculate the total market cap
+total_market_cap = df["VONHOA"].sum()
+# Calculate the component weights
+weights =  market_cap/total_market_cap
+# Calculate and plot the contribution by component
+df["DIEMANHHUONG"] = weights * index_return
+mask = df['DIEMANHHUONG'] < 0
+df['DIEMANHHUONGDUONG'] = df['DIEMANHHUONG'].mask(mask)
+df['DIEMANHHUONGAM'] = df['DIEMANHHUONG'].mask(~mask)
+df1 = df.sort_values(by = ['DIEMANHHUONGDUONG','DIEMANHHUONGAM'], ascending = [False, False])
+df = pd.concat([df, df1], axis=1)
+df2 = df1[['DIEMANHHUONGDUONG','DIEMANHHUONGAM','MACOPHIEU']]
+df2 = df1[['DIEMANHHUONGDUONG','DIEMANHHUONGAM','MACOPHIEU']]
+df2 = df2.set_index('MACOPHIEU')
+topduong = df2.nlargest(10, 'DIEMANHHUONGDUONG')
+topam = df2.nsmallest(10, 'DIEMANHHUONGAM')
+d = (topduong["DIEMANHHUONGDUONG"].reset_index()).set_index('MACOPHIEU')
+a = (topam["DIEMANHHUONGAM"].sort_values(ascending=False).reset_index()).set_index('MACOPHIEU')
+df3 = pd.concat([d, a])
+fig1, ax1 = plt.subplots()
+ax1.bar(df3.index, df3['DIEMANHHUONGDUONG'])
+ax1.bar(df3.index,df3["DIEMANHHUONGAM"])
+plt.xticks(rotation = 50)
+plt.title("NHÓM DẪN DẮT THỊ TRƯỜNG")
+plt.xlabel("MÃ CỔ PHIỂU")
+plt.ylabel("ĐIỂM ẢNH HƯỞNG")
 
 
 #Display
@@ -78,5 +112,6 @@ if (status == 'Biểu đồ vốn hoá' ):
     st.plotly_chart(vonhoa)
 elif (status == 'Độ rộng thị trường'):
     st.plotly_chart(fig)
-
+else:
+    st.pyplot(fig1)
 

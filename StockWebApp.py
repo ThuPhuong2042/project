@@ -99,9 +99,9 @@ a = (topam["DIEMANHHUONGAM"].sort_values(ascending=False).reset_index()).set_ind
 df3 = pd.concat([d, a])
 fig1 = go.Figure()
 fig1 = fig1.add_trace(go.Bar(x=df3.index, y=df3['DIEMANHHUONGDUONG'],
-                             name = 'DIEMANHHUONGDUONG',marker={'color':'green'},width=0.8))
+                             name = 'Điểm ảnh hưởng dương',marker={'color':'green'},width=0.8))
 fig1 = fig1.add_trace(go.Bar(x=df3.index, y=df3['DIEMANHHUONGAM'],
-                             name = 'DIEMANHHUONGAM',marker={'color':'red'},width=0.8))
+                             name = 'Điểm ảnh hưởng âm',marker={'color':'red'},width=0.8))
 fig1.update_layout(title_text='Nhóm dẫn dắt thị trường')
 
 

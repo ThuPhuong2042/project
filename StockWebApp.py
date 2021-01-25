@@ -13,8 +13,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-#Add a title
-st.title('Stock Web')
 
 #Load the data
 outfile = open("ckhoan.csv","w", newline='',encoding='utf-8')

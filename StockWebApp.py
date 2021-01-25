@@ -91,7 +91,7 @@ hose['KLLUUHANH'] = hose['KLLUUHANH'].apply(lambda x:float(x.replace('.','').rep
 hose['VONHOA'] = hose['Giakhop']*hose['KLLUUHANH']
 
 #Von hoa plot
-vonhoa = hose[['CK','Giakhop','KLLUUHANH','Thaydoi']].copy()
+vonhoa = hose[['CK','Giakhop','KLLUUHANH','Thaydoi','VONHOA']].copy()
 vonhoa = vonhoa.dropna()
 conditions = [(vonhoa['Thaydoi'] > 0), (vonhoa['Thaydoi'] < 0), (vonhoa['Thaydoi'] == 0)]
 values = ['Tăng giá', 'Giảm giá', 'Đứng giá']

@@ -18,7 +18,7 @@ import plotly.graph_objects as go
 outfile = open("ckhoan.csv","w", newline='',encoding='utf-8')
 writer = csv.writer(outfile)
 
-webUrl = urllib.request.urlopen('https://raw.githubusercontent.com/ThuPhuong2042/project/main/22.html')
+webUrl = urllib.request.urlopen('https://raw.githubusercontent.com/ThuPhuong2042/project/main/4.html')
 source_code = webUrl.read()
 #query = pyquery(source_code)
 

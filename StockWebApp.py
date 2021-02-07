@@ -14,6 +14,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
+#Add a title
+st.title('Stock Web')
+
 #Load the data
 # Instantiate the client with an endpoint.
 client = GraphqlClient(endpoint="https://gateway-iboard.ssi.com.vn/graphql")
@@ -221,7 +224,6 @@ df1 = pd.read_csv("table.csv", names = col_names)
 df1 = df1.drop(0).drop(columns=['ID', 'ISIN', "FIGI"])
 hose = df1.merge(df)
 
-
 #Convert
 hose['Giakhop'] = hose['Giakhop'].astype(float)
 hose['Thaydoi'] = hose['Thaydoi'].astype(float)
@@ -242,8 +244,6 @@ vonhoaplot = px.scatter(vonhoa, x='Giakhop', y='KLLUUHANH',
                  color_discrete_map ={'Tăng giá':'green','Giảm giá':'red','Đứng giá':'yellow'},
                  hover_name = 'CK')
 vonhoaplot.update_layout(title='Biểu đồ vốn hoá')
-
-#Do rong
 
 
 #Dan dat thi truong
@@ -273,4 +273,3 @@ if (status == 'Biểu đồ vốn hoá' ):
     st.plotly_chart(vonhoaplot)
 elif (status == 'Nhóm dẫn dắt thị trường'):
     st.plotly_chart(dandatplot)
-

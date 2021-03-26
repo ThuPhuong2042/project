@@ -500,12 +500,11 @@ exportList2.to_csv('exportList2.csv')
 print('\n', exportList2)
 
 #Display
-status = st.selectbox("Tổng quan thị trường",
-                      ['Nhóm dẫn dắt thị trường','Biểu đồ vốn hoá'])
-if (status == 'Biểu đồ vốn hoá' ):
-    st.plotly_chart(vonhoaplot)
-elif (status == 'Nhóm dẫn dắt thị trường'):
-    st.plotly_chart(dandatplot)
+st.markdown('Tổng quan thị trường')
+st.markdown('Biểu đồ vốn hoá')
+st.plotly_chart(vonhoaplot)
+st.markdown('Nhóm dẫn dắt thị trường')
+st.plotly_chart(dandatplot)
 
 #Print list cp co xu huong tang
 st.markdown('Danh sách cổ phiếu khuyến nghị mua')

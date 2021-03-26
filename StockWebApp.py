@@ -501,9 +501,7 @@ print('\n', exportList2)
 
 #Display
 st.markdown('Tổng quan thị trường')
-st.markdown('Biểu đồ vốn hoá')
 st.plotly_chart(vonhoaplot)
-st.markdown('Nhóm dẫn dắt thị trường')
 st.plotly_chart(dandatplot)
 
 #Print list cp co xu huong tang

@@ -434,16 +434,18 @@ print('\n', exportList)
 # exportList.to_excel(writer, "Sheet1")
 # writer.save()
 
-
-#list xu huong
-for stocki in rs_stocks:
+#List xu hướng
+exportList2 = pd.DataFrame(columns=['MÃ CỔ PHIẾU','GIÁ ĐÓNG CỬA' ,'CHỈ SỐ RS', 'SMA50', 'SMA150', 'SMA200', 'ĐÁY 52 TUẦN', 'ĐỈNH 52 TUẦN'])
+rs_stocks = rs_df['Ticker']
+for stock1 in rs_stocks:    
     try:
-        df = stock[stock["Ticker"] == stocki]
+
+        df = stock[stock["Ticker"] == stock1]
         sma = [50, 150, 200]
         for x in sma:
-            df["SMA_" + str(x)] = round(df['Adj.Close'].rolling(window=x).mean(), 2)
-
-        # Storing required values
+            df["SMA_"+str(x)] = round(df['Adj.Close'].rolling(window=x).mean(), 2)
+        
+        # Storing required values 
         currentClose = df["Adj.Close"][-1]
         Pre_Close = df["Adj.Close"][-2]
         currentOpen = df["Open"][-1]
@@ -455,8 +457,8 @@ for stocki in rs_stocks:
         moving_average_200 = df["SMA_200"][-1]
         low_of_52week = round(min(df["Low"][-260:]), 2)
         high_of_52week = round(max(df["High"][-260:]), 2)
-        RS_Rating = round(rs_df[rs_df['Ticker'] == stocki].RS_Rating.tolist()[0])
-
+        RS_Rating = round(rs_df[rs_df['Ticker']== stock1].RS_Rating.tolist()[0])
+        
         try:
             moving_average_200_20 = df["SMA_200"][-20]
         except Exception:
@@ -464,39 +466,38 @@ for stocki in rs_stocks:
 
         # Condition 1: Current Price > 150 SMA and > 200 SMA
         condition_1 = currentClose > moving_average_150 > moving_average_200
-
+        
         # Condition 2: 150 SMA and > 200 SMA
         condition_2 = moving_average_150 > moving_average_200
 
         # Condition 3: 200 SMA trending up for at least 1 month
         condition_3 = moving_average_200 > moving_average_200_20
-
+        
         # Condition 4: 50 SMA> 150 SMA and 50 SMA> 200 SMA
         condition_4 = moving_average_50 > moving_average_150 > moving_average_200
-
+           
         # Condition 5: Current Price > 50 SMA
         condition_5 = currentClose > moving_average_50
-
+           
         # Condition 6: Current Price is at least 30% above 52 week low
-        condition_6 = currentClose >= (1.3 * low_of_52week)
-
+        condition_6 = currentClose >= (1.3*low_of_52week)
+           
         # Condition 7: Current Price is within 25% of 52 week high
-        condition_7 = currentClose >= (.75 * high_of_52week)
-
-        #         If all conditions above are true, add stock to exportList
-        if (
-                condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7):
-            exportList = exportList.append(
-                {'MÃ CỔ PHIẾU': stocki, 'GIÁ ĐÓNG CỬA': currentClose, 'CHỈ SỐ RS': RS_Rating, 'SMA50': moving_average_50,
-                 'SMA150': moving_average_150
-                    , 'SMA200': moving_average_200, 'ĐÁY 52 TUẦN': low_of_52week, 'ĐỈNH 52 TUẦN': high_of_52week},
-                ignore_index=True)
-
+        condition_7 = currentClose >= (.75*high_of_52week)
+        
+        
+        
+#         If all conditions above are true, add stock to exportList
+        if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7 ):
+            exportList2 = exportList2.append({'MÃ CỔ PHIẾU': stock1,'GIÁ ĐÓNG CỬA' : currentClose ,'CHỈ SỐ RS': RS_Rating ,'SMA50': moving_average_50, 'SMA150': moving_average_150
+                                            , 'SMA200': moving_average_200, 'ĐÁY 52 TUẦN': low_of_52week, 'ĐỈNH 52 TUẦN': high_of_52week}, ignore_index=True)
     except Exception as e:
-        print(e)
-        print(f"Could not gather data on {stocki}")
+        print (e)
+        print(f"Could not gather data on {stock1}")
 # currentClose
 exportList2 = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
+exportList2.to_csv('exportList2.csv')
+print('\n', exportList2)
 
 #Display
 status = st.selectbox("Tổng quan thị trường",

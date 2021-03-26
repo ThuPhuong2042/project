@@ -434,13 +434,13 @@ print('\n', exportList)
 # exportList.to_excel(writer, "Sheet1")
 # writer.save()
 
-#List xu hướng
+#List xu huong
 exportList2 = pd.DataFrame(columns=['MÃ CỔ PHIẾU','GIÁ ĐÓNG CỬA' ,'CHỈ SỐ RS', 'SMA50', 'SMA150', 'SMA200', 'ĐÁY 52 TUẦN', 'ĐỈNH 52 TUẦN'])
 rs_stocks = rs_df['Ticker']
-for stock1 in rs_stocks:    
+for stock2 in rs_stocks:    
     try:
 
-        df = stock[stock["Ticker"] == stock1]
+        df = stock[stock["Ticker"] == stock2]
         sma = [50, 150, 200]
         for x in sma:
             df["SMA_"+str(x)] = round(df['Adj.Close'].rolling(window=x).mean(), 2)
@@ -457,7 +457,7 @@ for stock1 in rs_stocks:
         moving_average_200 = df["SMA_200"][-1]
         low_of_52week = round(min(df["Low"][-260:]), 2)
         high_of_52week = round(max(df["High"][-260:]), 2)
-        RS_Rating = round(rs_df[rs_df['Ticker']== stock1].RS_Rating.tolist()[0])
+        RS_Rating = round(rs_df[rs_df['Ticker']== stock2].RS_Rating.tolist()[0])
         
         try:
             moving_average_200_20 = df["SMA_200"][-20]
@@ -489,11 +489,11 @@ for stock1 in rs_stocks:
         
 #         If all conditions above are true, add stock to exportList
         if(condition_1 and condition_2 and condition_3 and condition_4 and condition_5 and condition_6 and condition_7 ):
-            exportList2 = exportList2.append({'MÃ CỔ PHIẾU': stock1,'GIÁ ĐÓNG CỬA' : currentClose ,'CHỈ SỐ RS': RS_Rating ,'SMA50': moving_average_50, 'SMA150': moving_average_150
+            exportList2 = exportList2.append({'MÃ CỔ PHIẾU': stock2,'GIÁ ĐÓNG CỬA' : currentClose ,'CHỈ SỐ RS': RS_Rating ,'SMA50': moving_average_50, 'SMA150': moving_average_150
                                             , 'SMA200': moving_average_200, 'ĐÁY 52 TUẦN': low_of_52week, 'ĐỈNH 52 TUẦN': high_of_52week}, ignore_index=True)
     except Exception as e:
         print (e)
-        print(f"Could not gather data on {stock1}")
+        print(f"Could not gather data on {stock2}")
 # currentClose
 exportList2 = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
 exportList2.to_csv('exportList2.csv')

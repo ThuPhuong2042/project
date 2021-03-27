@@ -290,7 +290,7 @@ exportList = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
 # writer = ExcelWriter("ScreenOutput.xlsx")
 # exportList.to_excel(writer, "Sheet1")
 # writer.save()
-exportList = exportList.set_index('MÃ CỔ PHIẾU')
+
 
 
 
@@ -359,7 +359,6 @@ for st in rs_stocks:
         print(f"Could not gather data on {st}")
 # currentClose
 exportList2 = exportList2.sort_values(by='CHỈ SỐ RS', ascending=False)
-exportList2 = exportList2.set_index('MÃ CỔ PHIẾU')
 
 
 
@@ -375,6 +374,8 @@ streamlit.plotly_chart(dandatplot)
 
 #Print list cp co xu huong tang
 streamlit.markdown('Danh sách cổ phiếu có xu hướng tăng')
-streamlit.dataframe(exportList2)
+streamlit.dataframe(exportList2.assign(hack='').set_index('hack'))
 streamlit.markdown('Danh sách cổ phiếu khuyến nghị mua hôm nay')
-streamlit.dataframe(exportList)
+streamlit.dataframe(exportList.assign(hack='').set_index('hack'))
+
+

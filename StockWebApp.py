@@ -13,8 +13,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import datetime
 
-#Add a title
-streamlit.title('Khuyến nghị giao dịch cổ phiếu')
+
 #Load the data
 outfile = open("ckhoan.csv","w", newline='',encoding='utf-8')
 writer = csv.writer(outfile)
@@ -100,7 +99,7 @@ vonhoaplot = px.scatter(vonhoa, x='Giakhop', y='KLLUUHANH',
                  size=area,color ='Biến động',
                  color_discrete_map ={'Tăng giá':'green','Giảm giá':'red','Đứng giá':'yellow'},
                  hover_name = 'CK')
-vonhoaplot.update_layout(title='Biểu đồ vốn hoá')
+vonhoaplot.update_layout(title='Vốn hoá')
 
 #Dan dat thi truong
 hshort = hose[['CK','VONHOA',"Thaydoi"]].copy()
@@ -368,14 +367,21 @@ exportList2 = exportList2.sort_values(by='CHỈ SỐ RS', ascending=False)
 
 
 #Display
-streamlit.markdown('Tổng quan thị trường')
-streamlit.plotly_chart(vonhoaplot)
-streamlit.plotly_chart(dandatplot)
+streamlit.set_page_config(page_title='Khuyến nghị giao dịch cổ phiếu',layout="wide")
+streamlit.title('Khuyến nghị giao dịch cổ phiếu')
+streamlit.markdown('<p style="font-size:30px">Tổng quan thị trường</p>', unsafe_allow_html=True)
+col1, col2 = streamlit.beta_columns(2)
+with col1:
+    streamlit.plotly_chart(vonhoaplot)
+    streamlit.markdown('<p style="font-size:30px">Danh sách cổ phiếu có xu hướng tăng</p>', unsafe_allow_html=True)
+    streamlit.dataframe(exportList2.assign(hack='').set_index('hack'))
+with col2:
+    streamlit.plotly_chart(dandatplot)
+    streamlit.markdown('<p style="font-size:30px">Danh sách cổ phiếu khuyến nghị mua hôm nay</p>', unsafe_allow_html=True)
+    streamlit.dataframe(exportList.assign(hack='').set_index('hack'))
 
 #Print list cp co xu huong tang
-streamlit.markdown('Danh sách cổ phiếu có xu hướng tăng')
-streamlit.dataframe(exportList2.assign(hack='').set_index('hack'))
-streamlit.markdown('Danh sách cổ phiếu khuyến nghị mua hôm nay')
-streamlit.dataframe(exportList.assign(hack='').set_index('hack'))
+
+
 
 

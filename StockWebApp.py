@@ -355,7 +355,7 @@ for st in rs_stocks:
         print(e)
         print(f"Could not gather data on {st}")
 # currentClose
-exportList2 = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
+exportList2 = exportList2.sort_values(by='CHỈ SỐ RS', ascending=False)
 
 
 

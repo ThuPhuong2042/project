@@ -99,7 +99,7 @@ vonhoaplot = px.scatter(vonhoa, x='Giakhop', y='KLLUUHANH',
                  size=area,color ='Biến động',
                  color_discrete_map ={'Tăng giá':'green','Giảm giá':'red','Đứng giá':'yellow'},
                  hover_name = 'CK')
-vonhoaplot.update_layout(title='Vốn hoá')
+vonhoaplot.update_layout(title='Vốn hoá',legend=dict(orientation="h",yanchor="bottom",y=1.02,xanchor="right", x=1))
 
 #Dan dat thi truong
 hshort = hose[['CK','VONHOA',"Thaydoi"]].copy()
@@ -119,7 +119,7 @@ dandatplot = dandatplot.add_trace(go.Bar(x=dandat.index, y=dandat['DIEMANHHUONGD
                              name = 'Điểm ảnh hưởng dương',marker={'color':'green'},width=0.8))
 dandatplot = dandatplot.add_trace(go.Bar(x=dandat.index, y=dandat['DIEMANHHUONGAM'],
                              name = 'Điểm ảnh hưởng âm',marker={'color':'red'},width=0.8))
-dandatplot.update_layout(title_text='Nhóm dẫn dắt thị trường')
+dandatplot.update_layout(title_text='Nhóm dẫn dắt thị trường',legend=dict(orientation="h",yanchor="bottom",y=1.02,xanchor="right", x=1))
 
 
 #Load data khuyen nghi
@@ -360,12 +360,6 @@ for st in rs_stocks:
 exportList2 = exportList2.sort_values(by='CHỈ SỐ RS', ascending=False)
 
 
-
-
-
-
-
-
 #Display
 streamlit.set_page_config(page_title='Khuyến nghị giao dịch cổ phiếu',layout="wide")
 streamlit.title('Khuyến nghị giao dịch cổ phiếu')
@@ -380,7 +374,6 @@ with col2:
     streamlit.markdown('<p style="font-size:30px">Danh sách cổ phiếu khuyến nghị mua hôm nay</p>', unsafe_allow_html=True)
     streamlit.dataframe(exportList.assign(hack='').set_index('hack'))
 
-#Print list cp co xu huong tang
 
 
 

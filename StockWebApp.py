@@ -363,15 +363,15 @@ exportList2 = exportList2.sort_values(by='CHỈ SỐ RS', ascending=False)
 #Display
 streamlit.set_page_config(page_title='Khuyến nghị giao dịch cổ phiếu',layout="wide")
 streamlit.title('Khuyến nghị giao dịch cổ phiếu')
-streamlit.markdown('<p style="font-size:30px">Tổng quan thị trường</p>', unsafe_allow_html=True)
+streamlit.markdown('<p style="font-size:25px">Tổng quan thị trường</p>', unsafe_allow_html=True)
 col1, col2 = streamlit.beta_columns(2)
 with col1:
     streamlit.plotly_chart(vonhoaplot)
-    streamlit.markdown('<p style="font-size:30px">Danh sách cổ phiếu có xu hướng tăng</p>', unsafe_allow_html=True)
+    streamlit.markdown('<p style="font-size:25px">Danh sách cổ phiếu có xu hướng tăng</p>', unsafe_allow_html=True)
     streamlit.dataframe(exportList2.assign(hack='').set_index('hack'))
 with col2:
     streamlit.plotly_chart(dandatplot)
-    streamlit.markdown('<p style="font-size:30px">Danh sách cổ phiếu khuyến nghị mua hôm nay</p>', unsafe_allow_html=True)
+    streamlit.markdown('<p style="font-size:25px">Danh sách cổ phiếu khuyến nghị mua hôm nay</p>', unsafe_allow_html=True)
     streamlit.dataframe(exportList.assign(hack='').set_index('hack'))
 
 

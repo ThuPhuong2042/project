@@ -272,7 +272,7 @@ for st in rs_stocks:
         condition_8 = currentClose > currentOpen
 
         # Condition 9 : Increase volume
-        condition_9 = Volume > (4 * Pre_volume) and currentClose > Pre_Close
+        condition_9 = Volume > (3 * Pre_volume) and currentClose > Pre_Close
 
         #         If all conditions above are true, add stock to exportList
         if (

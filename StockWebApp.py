@@ -18,7 +18,7 @@ import datetime
 outfile = open("ckhoan.csv","w", newline='',encoding='utf-8')
 writer = csv.writer(outfile)
 
-webUrl = urllib.request.urlopen('https://raw.githubusercontent.com/ThuPhuong2042/project/main/27_3_2021.html')
+webUrl = urllib.request.urlopen('https://raw.githubusercontent.com/ThuPhuong2042/project/main/cao.html')
 source_code = webUrl.read()
 
 #query = pyquery(source_code)

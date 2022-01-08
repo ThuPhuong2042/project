@@ -1,19 +1,24 @@
-import streamlit as st
+#Description: This is a stock market dashboard to show some charts and data on some stock
+
+#Import the libraries
+import streamlit as streamlit
 from bs4 import BeautifulSoup
 import csv
 import urllib.request
-import requests
-import time
+from python_graphql_client import GraphqlClient
+import requests, time
 import json
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import datetime
+from plotly.subplots import make_subplots
+
 
 
 #Add a title
-st.title('STOCK WEB')
+streamlit.title('STOCK WEB')
 #Load the data
 hose = pd.read_csv('https://raw.githubusercontent.com/ThuPhuong2042/project/main/hose.csv')
 
@@ -297,13 +302,12 @@ exportList2 = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
 
 
 #Display
-st.markdown('Tổng quan thị trường')
-st.plotly_chart(vonhoaplot)
-st.plotly_chart(dandatplot)
+streamlit.markdown('Tổng quan thị trường')
+streamlit.plotly_chart(vonhoaplot)
+streamlit.plotly_chart(dandatplot)
 
 #Print list cp co xu huong tang
-st.markdown('Danh sách cổ phiếu khuyến nghị mua')
-st.dataframe(exportList)
-st.markdown('Danh sách cổ phiếu có xu hướng tăng')
-st.dataframe(exportList2)
-
+streamlit.markdown('Danh sách cổ phiếu khuyến nghị mua')
+streamlit.dataframe(exportList)
+streamlit.markdown('Danh sách cổ phiếu có xu hướng tăng')
+streamlit.dataframe(exportList2)

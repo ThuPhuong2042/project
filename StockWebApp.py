@@ -13,7 +13,7 @@ import datetime
 
 
 #Add a title
-streamlit.title('STOCK WEB')
+st.title('STOCK WEB')
 #Load the data
 hose = pd.read_csv('https://raw.githubusercontent.com/ThuPhuong2042/project/main/hose.csv')
 
@@ -297,12 +297,13 @@ exportList2 = exportList.sort_values(by='CHỈ SỐ RS', ascending=False)
 
 
 #Display
-streamlit.markdown('Tổng quan thị trường')
-streamlit.plotly_chart(vonhoaplot)
-streamlit.plotly_chart(dandatplot)
+st.markdown('Tổng quan thị trường')
+st.plotly_chart(vonhoaplot)
+st.plotly_chart(dandatplot)
 
 #Print list cp co xu huong tang
-streamlit.markdown('Danh sách cổ phiếu khuyến nghị mua')
-streamlit.dataframe(exportList)
-streamlit.markdown('Danh sách cổ phiếu có xu hướng tăng')
-streamlit.dataframe(exportList2)
+st.markdown('Danh sách cổ phiếu khuyến nghị mua')
+st.dataframe(exportList)
+st.markdown('Danh sách cổ phiếu có xu hướng tăng')
+st.dataframe(exportList2)
+
